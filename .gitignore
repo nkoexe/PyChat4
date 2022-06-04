@@ -1,0 +1,13 @@
+.vscode/
+__pycache__/
+
+*.zip
+*.log
+
+*.pyproject
+*.pyproject.user
+*.autosave
+
+*.pyc
+*.pyo
+
