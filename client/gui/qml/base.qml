@@ -1,5 +1,11 @@
 import QtQuick
-import QtQuick.Window
+
+import "views/components"
+
+/* TODO:
+ * - remove resizing handles when window is maximized
+ */
+
 
 Window {
     id: win
@@ -11,30 +17,36 @@ Window {
     flags: Qt.Window | Qt.FramelessWindowHint
 
 
-    property int sizingHandleSize: 10
+    property int sizingHandleSize: 5
 
 
-    Rectangle {
+    function loadView (view) {
+        mainView.source = 'views/' + view + '.qml'
+    }
+
+
+    Item {
         id: root
         anchors.fill: parent
 
         Rectangle {
             id: titlebar
-            color: "#191919"
+            color: colors.titlebar_bg
             border.width: 0
             height: 30
             anchors.left: root.left
             anchors.right: root.right
 
             Rectangle {
+                property int padding: 3
+
                 id: titlebar_icon
-                color: "#262626"
+                color: colors.titlebar_icon
                 x: padding
                 y: padding
                 width: titlebar.height - padding * 2
                 height: titlebar.height - padding * 2
 
-                property int padding: 3
             }
 
             MouseArea {
@@ -51,24 +63,83 @@ Window {
                 }
             }
 
-            Rectangle {
+            Item {
+                property int buttonWidth: 50
+
                 id: titlebar_buttons
-                color: "#00000000"
-                width: 200
+                width: buttonWidth * 3
                 anchors.top: titlebar.top
                 anchors.bottom: titlebar.bottom
                 anchors.right: titlebar.right
+
+                MyButton {
+                    id: closeButton
+                    baseColor: colors.titlebar_button_bg
+                    hoverColor: colors.titlebar_close_hover
+                    pressedColor: colors.titlebar_close_pressed
+                    width: titlebar_buttons.buttonWidth
+                    anchors {
+                        top: parent.top
+                        bottom: parent.bottom
+                        right: parent.right
+                    }
+
+                    function callback() {
+                        win.close()
+                    }
+                }
+
+                MyButton {
+                    id: maximizeButton
+                    baseColor: colors.titlebar_button_bg
+                    hoverColor: colors.titlebar_maximize_hover
+                    pressedColor: colors.titlebar_maximize_pressed
+                    width: titlebar_buttons.buttonWidth
+                    anchors {
+                        top: parent.top
+                        bottom: parent.bottom
+                        right: closeButton.left
+                    }
+
+                    property bool _isMaximized: false
+
+                    function callback() {
+                        if (_isMaximized) {
+                            win.showNormal()
+                        } else {
+                            win.showMaximized()
+                        }
+                        _isMaximized = !_isMaximized
+                    }
+                }
+
+                MyButton {
+                    id: minimizeButton
+                    baseColor: colors.titlebar_button_bg
+                    hoverColor: colors.titlebar_minimize_hover
+                    pressedColor: colors.titlebar_minimize_pressed
+                    width: titlebar_buttons.buttonWidth
+                    anchors {
+                        top: parent.top
+                        bottom: parent.bottom
+                        right: maximizeButton.left
+                    }
+
+                    function callback() {
+                        win.showMinimized()
+                    }
+                }
             }
         }
 
-        Rectangle {
-            id: main
-            color: "#282828"
-            border.width: 0
-            anchors.left: root.left
-            anchors.right: root.right
-            anchors.top: titlebar.bottom
-            anchors.bottom: root.bottom
+        Loader {
+            id: mainView
+            anchors {
+                left: root.left
+                right: root.right
+                top: titlebar.bottom
+                bottom: root.bottom
+            }
         }
 
 
