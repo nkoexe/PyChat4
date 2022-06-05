@@ -1,12 +1,27 @@
+import os
+
 from PySide6.QtGui import QGuiApplication
 from PySide6.QtQml import QQmlApplicationEngine
 
-from gui.main import MainWindow
+from gui import Window
+from settings import Colors, Data, Settings
 
-if __name__ == '__main__':
+
+def main():
+    os.chdir(os.path.dirname(os.path.abspath(__file__)))
+
     app = QGuiApplication([])
     engine = QQmlApplicationEngine()
 
-    main = MainWindow(engine)
+    settings = Settings()
+    colors = Colors()
+    data = Data()
 
-    exit(app.exec())
+    window = Window(engine, theme=colors.getTheme(settings.theme))
+    window.loadView('main')
+
+    app.exec()
+
+
+if __name__ == '__main__':
+    main()
