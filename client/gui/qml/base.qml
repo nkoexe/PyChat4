@@ -10,7 +10,6 @@ import "views/components"
 Window {
     id: win
     visible: true
-    color: "#00000000"
     width: 1250
     height: 650
     title: "PyChat v4"

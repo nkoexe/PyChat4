@@ -1,4 +1,5 @@
 import os
+from pathlib import Path
 
 from PySide6.QtGui import QGuiApplication
 from PySide6.QtQml import QQmlApplicationEngine
@@ -8,7 +9,7 @@ from settings import Colors, Data, Settings
 
 
 def main():
-    os.chdir(os.path.dirname(os.path.abspath(__file__)))
+    os.chdir(os.fspath(Path(__file__).resolve().parent))
 
     app = QGuiApplication([])
     engine = QQmlApplicationEngine()
