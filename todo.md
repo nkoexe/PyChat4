@@ -1,0 +1,1 @@
+- usare stati al posto di funzioni per il pulsante (normal, hovered, pressed), permettere personalizzazione, transizione tra stati (animazione con duration - nulla)
