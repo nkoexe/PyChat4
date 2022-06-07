@@ -10,9 +10,10 @@ class Window(QObject):
         super(Window, self).__init__()
 
         self.engine = engine
+        self.rootcontext = self.engine.rootContext()
 
-        self.engine.rootContext().setContextProperty('colors', theme)
-        self.engine.rootContext().setContextProperty('backend', self)
+        self.rootcontext.setContextProperty('colors', theme)
+        self.rootcontext.setContextProperty('backend', self)
         self.engine.load(os.fspath(Path(__file__).resolve().parent / 'qml' / 'base.qml'))
 
         self.root = self.engine.rootObjects()[0]
@@ -23,4 +24,4 @@ class Window(QObject):
 
     @Slot(str)
     def setTheme(self, theme: dict):
-        self.engine.rootContext().setContextProperty('colors', theme)
+        self.rootcontext.setContextProperty('colors', theme)
