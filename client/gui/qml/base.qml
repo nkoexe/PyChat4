@@ -1,10 +1,5 @@
 import QtQuick
-
 import "views/components"
-
-/* TODO:
- * - remove resizing handles when window is maximized
- */
 
 
 Window {
@@ -12,11 +7,16 @@ Window {
     visible: true
     width: 1250
     height: 650
+    minimumWidth: 650
+    minimumHeight: 450
     title: "PyChat v4"
     flags: Qt.Window | Qt.FramelessWindowHint
 
 
+    property var colors: {'background1': '#1a1a1a', 'background2': '#202020', 'background3': '#282828', 'text1': '#b0b0b0', 'text2': '#a0a0a0', 'text3': '#909090', 'accent1': '#e02664', 'accent2': '#cf3669', 'titlebar_bg': '#191919', 'titlebar_text': '#ffffff', 'titlebar_icon': '#ffffff', 'titlebar_button_bg': '#191919', 'titlebar_button_icon': '#ffffff', 'titlebar_close_hover': '#bd395a', 'titlebar_close_pressed': '#ed2456', 'titlebar_maximize_hover': '#303030', 'titlebar_maximize_pressed': '#63d13f', 'titlebar_minimize_hover': '#303030', 'titlebar_minimize_pressed': '#e3c024'}
+
     property int sizingHandleSize: 5
+    property bool isMaximized: false
 
 
     function loadView (view) {
@@ -45,7 +45,17 @@ Window {
                 y: padding
                 width: titlebar.height - padding * 2
                 height: titlebar.height - padding * 2
+            }
 
+            Text {
+                id: windowtitle
+                text: "PyChat v4"
+                font.family: "Product Sans"
+                font.pointSize: 10
+                color: colors.titlebar_text
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.left: titlebar_icon.right
+                anchors.leftMargin: 10
             }
 
             MouseArea {
@@ -59,6 +69,7 @@ Window {
                 pressAndHoldInterval: 10
                 onPressAndHold: {
                     win.startSystemMove()
+                    win.isMaximized = false
                 }
             }
 
@@ -100,15 +111,13 @@ Window {
                         right: closeButton.left
                     }
 
-                    property bool _isMaximized: false
-
                     function callback() {
-                        if (_isMaximized) {
+                        if (win.isMaximized) {
                             win.showNormal()
                         } else {
                             win.showMaximized()
                         }
-                        _isMaximized = !_isMaximized
+                        win.isMaximized = !win.isMaximized
                     }
                 }
 
@@ -133,6 +142,7 @@ Window {
 
         Loader {
             id: mainView
+            clip: true
             anchors {
                 left: root.left
                 right: root.right
@@ -144,6 +154,7 @@ Window {
 
         MouseArea {
             id : res_topleft
+            visible: !win.isMaximized
             width: sizingHandleSize
             height: sizingHandleSize
 
@@ -157,6 +168,7 @@ Window {
 
         MouseArea {
             id : res_left
+            visible: !win.isMaximized
             width: sizingHandleSize
             height: root.height - sizingHandleSize * 2
             anchors.top: root.top
@@ -172,6 +184,7 @@ Window {
 
         MouseArea {
             id : res_botleft
+            visible: !win.isMaximized
             width: sizingHandleSize
             height: sizingHandleSize
             anchors.bottom: root.bottom
@@ -187,6 +200,7 @@ Window {
 
         MouseArea {
             id : res_bot
+            visible: !win.isMaximized
             width: root.width - sizingHandleSize * 2
             height: sizingHandleSize
             anchors.bottom: root.bottom
@@ -203,6 +217,7 @@ Window {
 
         MouseArea {
             id : res_botright
+            visible: !win.isMaximized
             width: sizingHandleSize
             height: sizingHandleSize
             anchors.bottom: root.bottom
@@ -218,6 +233,7 @@ Window {
 
         MouseArea {
             id : res_right
+            visible: !win.isMaximized
             width: sizingHandleSize
             height: root.height - sizingHandleSize * 2
             anchors.top: root.top
@@ -234,6 +250,7 @@ Window {
 
         MouseArea {
             id : res_topright
+            visible: !win.isMaximized
             width: sizingHandleSize
             height: sizingHandleSize
             anchors.right: root.right
@@ -248,6 +265,7 @@ Window {
 
         MouseArea {
             id : res_top
+            visible: !win.isMaximized
             width: root.width - sizingHandleSize * 2
             height: sizingHandleSize
             anchors.left: root.left
@@ -264,3 +282,5 @@ Window {
     }
 
 }
+
+
