@@ -8,9 +8,9 @@ Item {
     activeFocusOnTab: true
 
     property bool checked: false
-    property color uncheckedColor: "#303030"
-    property color checkedColor: "#e3125f"
-    property string text: "fdsmfiodsnfiudsnfudsnuofds"
+    property color uncheckedColor
+    property color checkedColor
+    property string text
 
     states: [
         State {
@@ -21,14 +21,6 @@ Item {
                 target: recto
                 color: checkedColor
                 radius: recto.width / 2
-            }
-        },
-        State {
-            name: "unchecked"
-            when: !root.checked
-
-            PropertyChanges {
-                target: recto
             }
         }
     ]
