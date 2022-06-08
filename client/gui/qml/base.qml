@@ -26,6 +26,7 @@ Window {
 
     Item {
         id: root
+        focus: true
         anchors.fill: parent
 
         Rectangle {
