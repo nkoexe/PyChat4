@@ -18,7 +18,7 @@ def main():
     colors = Colors()
     data = Data()
 
-    window = Window(engine, theme=colors.getTheme(settings.theme))
+    window = Window(engine, settings=settings, colors=colors, data=data)
     window.loadView('main')
 
     app.exec()

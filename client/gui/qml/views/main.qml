@@ -21,7 +21,9 @@ Rectangle {
             bottom: parent.verticalCenter
             left: parent.horizontalCenter
             right: parent.right
-            margins: 20}}
+            margins: 20}
+        MouseArea {anchors.fill: parent
+            onReleased: {backend._temp_nextTheme()}}}
     Rectangle {color: colors.background1
         radius: 20
         anchors {top: parent.verticalCenter

@@ -7,13 +7,17 @@ from PySide6.QtGui import QColor
 
 
 class Window(QObject):
-    def __init__(self, engine: QQmlApplicationEngine, theme: dict):
+    def __init__(self, engine: QQmlApplicationEngine, settings, colors, data):
         super(Window, self).__init__()
+
+        self.settings = settings
+        self.colors = colors
+        self.data = data
 
         self.engine = engine
         self.rootcontext = self.engine.rootContext()
 
-        self.setTheme(theme)
+        self.setTheme(self.colors.getTheme(self.settings.theme))
         self.rootcontext.setContextProperty('backend', self)
 
         self.engine.load(os.fspath(Path(__file__).resolve().parent / 'qml' / 'base.qml'))
@@ -30,3 +34,13 @@ class Window(QObject):
             theme[i] = QColor(theme[i])
 
         self.rootcontext.setContextProperty('colors', theme)
+
+    @Slot()
+    def _temp_nextTheme(self):
+        s = self.colors.configfile.sections()
+        s.index(self.settings.theme)
+        if s.index(self.settings.theme) + 1 >= len(s):
+            self.settings.theme = s[0]
+        else:
+            self.settings.theme = s[s.index(self.settings.theme) + 1]
+        self.setTheme(self.colors.getTheme(self.settings.theme))
