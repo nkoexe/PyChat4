@@ -3,6 +3,7 @@ from pathlib import Path
 
 from PySide6.QtQml import QQmlApplicationEngine
 from PySide6.QtCore import QObject, Slot
+from PySide6.QtGui import QColor
 
 
 class Window(QObject):
@@ -12,8 +13,9 @@ class Window(QObject):
         self.engine = engine
         self.rootcontext = self.engine.rootContext()
 
-        self.rootcontext.setContextProperty('colors', theme)
+        self.setTheme(theme)
         self.rootcontext.setContextProperty('backend', self)
+
         self.engine.load(os.fspath(Path(__file__).resolve().parent / 'qml' / 'base.qml'))
 
         self.root = self.engine.rootObjects()[0]
@@ -24,4 +26,7 @@ class Window(QObject):
 
     @Slot(str)
     def setTheme(self, theme: dict):
+        for i in theme:
+            theme[i] = QColor(theme[i])
+
         self.rootcontext.setContextProperty('colors', theme)

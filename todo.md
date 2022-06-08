@@ -1,1 +1,2 @@
-- usare stati al posto di funzioni per il pulsante (normal, hovered, pressed), permettere personalizzazione, transizione tra stati (animazione con duration - nulla)
+- aggiungere al pulsante possibilita' di modificare proprieta' dell'immagine interna
+- rimuovere focus da l'oggetto che lo ha quando si clicca con il mouse
