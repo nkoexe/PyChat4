@@ -1,31 +1,43 @@
 import QtQuick
 import Qt5Compat.GraphicalEffects
 import "components"
+import "scripts/colorfunctions.js" as ColorFunctions
 
 Rectangle {
-    id: main
-    color: "#191919"
+    id: root
+    color: colors.background2
     border.width: 0
+
+    Button {
+        width: 50
+        height: 50
+        hoverRotation: 30
+
+        function callback() {
+            backend.loadView("main")
+        }
+
+    }
 
     RadialGradient {
         id: bg_grad
-        height: main.height * 2
+        height: root.height * 2
         width: height
-        x: main.width - height/2
+        x: root.width - height/2
         y: 0
         gradient: Gradient {
-            GradientStop { position: 0.0; color: "#4bf52974" }
+            GradientStop { position: 0.0; color: ColorFunctions.transparency(colors.accent1, 0.35) }
             GradientStop { position: 0.5; color: "transparent" }
         }
     }
 
     Rectangle {
         id: bg_rect1
-        x: main.width * 0.8
-        y: main.height * 0.35
+        x: root.width * 0.8
+        y: root.height * 0.35
         width: 40
         height: 40
-        color: "#aeed4fbb"
+        color: ColorFunctions.transparency(colors.accent1, 0.7)
         radius: 10
 
         NumberAnimation on rotation {
@@ -59,11 +71,11 @@ Rectangle {
 
     Rectangle {
         id: bg_rect2
-        x: main.width * 0.85
-        y: main.height * 0.5
+        x: root.width * 0.85
+        y: root.height * 0.5
         width: 50
         height: 50
-        color: "#aeed4fbb"
+        color: ColorFunctions.transparency(colors.accent1, 0.7)
         radius: 10
 
         NumberAnimation on rotation {
@@ -99,17 +111,17 @@ Rectangle {
         id: form
         width: 385
         height: 320
-        color: "#1b1b1b"
+        color: colors.background2
         radius: 20
         anchors {
-            verticalCenter: main.verticalCenter
-            left: main.left
-            leftMargin: (main.width - width) / 4
+            verticalCenter: root.verticalCenter
+            left: root.left
+            leftMargin: (root.width - width) / 4
         }
 
         Text {
             id: formtitle
-            color: "#ffffff"
+            color: colors.text1
             text: "Login"
             font.bold: true
             font.family: "Product Sans"
@@ -124,8 +136,10 @@ Rectangle {
 
         FormTextInput {
             id: username
-            placeholdertext: "username"
             height: 40
+            placeholdertext: "username"
+            color: colors.background1
+            textColor: colors.text1
             anchors {
                 left: form.left
                 right: form.right
@@ -138,9 +152,11 @@ Rectangle {
 
         FormTextInput {
             id: password
-            placeholdertext: "password"
-            _echoMode: TextInput.Password
             height: 40
+            placeholdertext: "password"
+            color: colors.background1
+            textColor: colors.text1
+            echoMode: TextInput.Password
             anchors {
                 left: form.left
                 right: form.right
@@ -156,6 +172,8 @@ Rectangle {
             height: 20
             checked: true
             text: "Remember Me"
+            uncheckedColor: colors.background3
+            checkedColor: colors.accent1
 
             anchors {
                 left: form.left
@@ -165,7 +183,7 @@ Rectangle {
             }
         }
 
-        MyButton {
+        Button {
             id: submit
             width: 70
             height: 70
@@ -177,10 +195,10 @@ Rectangle {
                 rightMargin: 25
             }
 
-            baseColor: "#75db64"
-            hoverColor: "#75db64"
+            baseColor: colors.accent2
+            hoverColor: colors.accent2
             hoverRotation: 45
-            pressedColor: "#58a45b"
+            pressedColor: Qt.darker(colors.accent2, 1.2)
             pressedRotation: 45
             animDuration: 300
             animEasing: Easing.OutBack
@@ -193,7 +211,7 @@ Rectangle {
         transparentBorder: true
         radius: 10
         spread: 0.1
-        color: "#363636"
+        color: colors.background1
     }
 
     SequentialAnimation {
@@ -206,7 +224,7 @@ Rectangle {
             NumberAnimation {
                 target: bg_grad
                 property: "y"
-                from: main.height
+                from: root.height
                 to: 0
                 duration: 3000
                 easing.type: Easing.OutExpo
@@ -215,16 +233,16 @@ Rectangle {
             NumberAnimation {
                 target: bg_rect1
                 property: "y"
-                from: main.height
-                to: main.height * 0.35
+                from: root.height
+                to: root.height * 0.35
                 duration: 1400
                 easing.type: Easing.OutExpo
             }
             NumberAnimation {
                 target: bg_rect2
                 property: "y"
-                from: main.height
-                to: main.height * 0.5
+                from: root.height
+                to: root.height * 0.5
                 duration: 1400
                 easing.type: Easing.OutExpo
             }

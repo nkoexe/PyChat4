@@ -1,30 +1,33 @@
 import QtQuick
+import "../scripts/colorfunctions.js" as ColorFunctions
 
 Rectangle {
     id: root
-    color: "#212121"
     border.width: 0
+    clip: true
 
     property string placeholdertext
-    property int _echoMode: TextInput.Normal
+    property int echoMode: TextInput.Normal
+    property color textColor
+    property color selectionColor: colors.accent2
 
     TextInput {
         id: input
-        color: "#ffffff"
+        color: root.textColor
         font.pixelSize: root.height - 20
         verticalAlignment: Text.AlignVCenter
         font.family: "Product Sans"
-        selectionColor: "#e31f95"
+        selectionColor: root.selectionColor
         activeFocusOnTab: true
         focus: true
         selectByMouse: true
         anchors.fill: root
         anchors.margins: 10
-        echoMode: _echoMode
+        echoMode: root.echoMode
 
         Text {
             text: placeholdertext
-            color: "#aaa"
+            color: ColorFunctions.transparency(root.textColor, 0.6)
             font.pixelSize: root.height - 20
             verticalAlignment: Text.AlignVCenter
             font.family: "Product Sans"
