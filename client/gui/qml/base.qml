@@ -12,15 +12,12 @@ Window {
     title: "PyChat v4"
     flags: Qt.Window | Qt.FramelessWindowHint
 
-
-    property var colors: {'background1': '#1a1a1a', 'background2': '#202020', 'background3': '#282828', 'text1': '#b0b0b0', 'text2': '#a0a0a0', 'text3': '#909090', 'accent1': '#e02664', 'accent2': '#cf3669', 'titlebar_bg': '#191919', 'titlebar_text': '#ffffff', 'titlebar_icon': '#ffffff', 'titlebar_button_bg': '#191919', 'titlebar_button_icon': '#ffffff', 'titlebar_close_hover': '#bd395a', 'titlebar_close_pressed': '#ed2456', 'titlebar_maximize_hover': '#303030', 'titlebar_maximize_pressed': '#63d13f', 'titlebar_minimize_hover': '#303030', 'titlebar_minimize_pressed': '#e3c024'}
-
     property int sizingHandleSize: 5
     property bool isMaximized: false
 
 
     function loadView (view) {
-        mainView.source = 'views/' + view + '.qml'
+        mainView.setSource('views/' + view + '.qml')
     }
 
 
@@ -83,7 +80,7 @@ Window {
                 anchors.bottom: titlebar.bottom
                 anchors.right: titlebar.right
 
-                MyButton {
+                Button {
                     id: closeButton
                     baseColor: colors.titlebar_button_bg
                     hoverColor: colors.titlebar_close_hover
@@ -100,7 +97,7 @@ Window {
                     }
                 }
 
-                MyButton {
+                Button {
                     id: maximizeButton
                     baseColor: colors.titlebar_button_bg
                     hoverColor: colors.titlebar_maximize_hover
@@ -122,7 +119,7 @@ Window {
                     }
                 }
 
-                MyButton {
+                Button {
                     id: minimizeButton
                     baseColor: colors.titlebar_button_bg
                     hoverColor: colors.titlebar_minimize_hover
@@ -150,6 +147,7 @@ Window {
                 top: titlebar.bottom
                 bottom: root.bottom
             }
+
         }
 
 

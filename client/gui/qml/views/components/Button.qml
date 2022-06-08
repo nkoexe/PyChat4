@@ -6,15 +6,15 @@ Rectangle {
     focus: true
     activeFocusOnTab: true
 
-    property color baseColor
+    property color baseColor: "transparent"
     property int baseRotation: 0
     property int baseScale: 1
 
-    property color hoverColor
+    property color hoverColor: "transparent"
     property int hoverRotation: 0
     property int hoverScale: 1
 
-    property color pressedColor
+    property color pressedColor: "transparent"
     property int pressedRotation: 0
     property int pressedScale: 1
 
@@ -70,6 +70,8 @@ Rectangle {
             root.state = "base"
         }
     }
+
+    Keys.onReturnPressed: callback()
 
     MouseArea {
         id: mousearea
