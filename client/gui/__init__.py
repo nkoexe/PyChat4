@@ -37,10 +37,8 @@ class Window(QObject):
 
     @Slot()
     def _temp_nextTheme(self):
-        s = self.colors.configfile.sections()
-        s.index(self.settings.theme)
-        if s.index(self.settings.theme) + 1 >= len(s):
-            self.settings.theme = s[0]
+        if self.colors.themes.index(self.settings.theme) + 1 >= len(self.colors.themes):
+            self.settings.theme = self.colors.themes[0]
         else:
-            self.settings.theme = s[s.index(self.settings.theme) + 1]
+            self.settings.theme = self.colors.themes[self.colors.themes.index(self.settings.theme) + 1]
         self.setTheme(self.colors.getTheme(self.settings.theme))

@@ -8,9 +8,13 @@ class FileAPI:
         self.config = ConfigParser()
         self.config.read(file)
 
-    def get(self, section, option=None):
+    def get(self, section=None, option=None):
+        if section is None:
+            return self.config.sections()
+
         if option is None:
             return self.config[section]
+
         return self.config.get(section, option)
 
     def set(self, section, option, value):
@@ -45,6 +49,8 @@ class Colors(FileAPI):
 
     def __init__(self):
         self.load('colors.ini')
+
+        self.themes = self.get()
 
     def getTheme(self, theme: str) -> dict:
         return dict(self.get(theme))

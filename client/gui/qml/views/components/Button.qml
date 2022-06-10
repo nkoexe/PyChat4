@@ -100,7 +100,7 @@ Rectangle {
     }
 
     Text {
-        color: "#ffffff"
+        color: colors.titlebar_button_icon
         anchors.fill: root
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
