@@ -11,6 +11,12 @@ Rectangle {
     property color textColor
     property color selectionColor: colors.accent2
 
+    property string text: input.text
+
+    function callback() {}
+
+    TapHandler { onTapped: input.forceActiveFocus() }
+
     TextInput {
         id: input
         color: root.textColor
@@ -24,6 +30,8 @@ Rectangle {
         anchors.fill: root
         anchors.margins: 10
         echoMode: root.echoMode
+
+        onAccepted: root.callback()
 
         Text {
             text: placeholdertext
