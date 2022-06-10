@@ -1,11 +1,10 @@
 import QtQuick
 
 Rectangle {
-    id: main
+    id: root
     color: colors.background2
     border.width: 0
 
-    //  TESTIG :D
     Rectangle {color: colors.background1
         radius: 20
         anchors {top: parent.top
@@ -13,8 +12,7 @@ Rectangle {
             left: parent.left
             right: parent.horizontalCenter
             margins: 20}
-        MouseArea {anchors.fill: parent
-            onReleased: {backend.loadView("login")}}}
+        TapHandler {onTapped: backend.loadView("login")}}
     Rectangle {color: colors.background1
         radius: 20
         anchors {top: parent.top
@@ -22,15 +20,15 @@ Rectangle {
             left: parent.horizontalCenter
             right: parent.right
             margins: 20}
-        MouseArea {anchors.fill: parent
-            onReleased: {backend._temp_nextTheme()}}}
+        TapHandler {onTapped: backend._temp_nextTheme()}}
     Rectangle {color: colors.background1
         radius: 20
         anchors {top: parent.verticalCenter
             bottom: parent.bottom
             left: parent.horizontalCenter
             right: parent.right
-            margins: 20}}
+            margins: 20}
+    TapHandler {onTapped: backend.loadView("test")}}
 
 }
 

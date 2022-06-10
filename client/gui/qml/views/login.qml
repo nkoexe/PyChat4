@@ -18,7 +18,7 @@ Rectangle {
         height: 50
 
         function callback() {
-            backend.loadView("main")
+            backend.loadView("test")
         }
 
     }
@@ -196,6 +196,7 @@ Rectangle {
             height: 20
             checked: true
             text: "Remember Me"
+            textColor: colors.text2
             uncheckedColor: colors.background3
             checkedColor: colors.accent1
 

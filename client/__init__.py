@@ -19,7 +19,7 @@ def main():
     data = Data()
 
     window = Window(engine, settings=settings, colors=colors, data=data)
-    window.loadView('main')
+    window.loadView('test')
 
     app.exec()
 

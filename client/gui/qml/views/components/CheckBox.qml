@@ -10,6 +10,7 @@ Item {
     property bool checked: false
     property color uncheckedColor
     property color checkedColor
+    property color textColor: "red"
     property string text
 
     states: [
@@ -67,7 +68,7 @@ Item {
     Text {
         id: label
         text: root.text
-        color: "#ffffff"
+        color: textColor
         font.pixelSize: root.height * 0.75
         anchors {
             left: recto.right
