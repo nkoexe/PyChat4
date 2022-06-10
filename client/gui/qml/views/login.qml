@@ -8,10 +8,14 @@ Rectangle {
     color: colors.background2
     border.width: 0
 
+    function submitLogin () {
+        console.log(username)
+    }
+
+    // back button
     Button {
         width: 50
         height: 50
-        hoverRotation: 30
 
         function callback() {
             backend.loadView("main")
@@ -19,8 +23,11 @@ Rectangle {
 
     }
 
+    /*  ~~~~~  BACKGROUND  ~~~~~  */
+
     RadialGradient {
         id: bg_grad
+        visible: false  // not visible until start animation
         height: root.height * 2
         width: height
         x: root.width - height/2
@@ -33,15 +40,17 @@ Rectangle {
 
     Rectangle {
         id: bg_rect1
+        visible: false
         x: root.width * 0.8
         y: root.height * 0.35
-        width: 40
-        height: 40
+        width: root.height / 15
+        height: width
         color: ColorFunctions.transparency(colors.accent1, 0.7)
         radius: 10
 
         NumberAnimation on rotation {
             id: bg_rect1_anim1
+            running: false
             from: 1
             to: 90
             loops: Animation.Infinite
@@ -50,8 +59,9 @@ Rectangle {
 
         NumberAnimation on rotation {
             id: bg_rect1_anim2
+            running: false
             to: 360
-            duration: 700
+            duration: 650
             easing.type: Easing.OutCirc
 
             onFinished: {
@@ -71,25 +81,28 @@ Rectangle {
 
     Rectangle {
         id: bg_rect2
+        visible: false
         x: root.width * 0.85
         y: root.height * 0.5
-        width: 50
-        height: 50
+        width: root.height / 12
+        height: width
         color: ColorFunctions.transparency(colors.accent1, 0.7)
         radius: 10
 
         NumberAnimation on rotation {
             id: bg_rect2_anim1
-            from: 1
-            to: 90
+            running: false
+            from: 46  // rotated 45deg
+            to: 135
             loops: Animation.Infinite
             duration: 2000
         }
 
         NumberAnimation on rotation {
             id: bg_rect2_anim2
-            to: 360
-            duration: 700
+            running: false
+            to: 315
+            duration: 600
             easing.type: Easing.OutCirc
 
             onFinished: {
@@ -107,10 +120,13 @@ Rectangle {
         }
     }
 
+
+    /*  ~~~~~  FORM  ~~~~~  */
+
     Rectangle {
         id: form
-        width: 385
-        height: 320
+        width: 370 + root.width / 12
+        height: 300 + root.height / 20  // 320
         color: colors.background2
         radius: 20
         anchors {
@@ -144,9 +160,13 @@ Rectangle {
                 left: form.left
                 right: form.right
                 top: formtitle.bottom
-                topMargin: 30
+                topMargin: 15 + root.height / 40
                 rightMargin: 30
                 leftMargin: 30
+            }
+
+            function callback () {
+                password.forceActiveFocus()
             }
         }
 
@@ -164,6 +184,10 @@ Rectangle {
                 topMargin: 20
                 rightMargin: 30
                 leftMargin: 30
+            }
+
+            function callback () {
+                console.log()
             }
         }
 
@@ -190,9 +214,9 @@ Rectangle {
             radius: 20
             anchors {
                 right: form.right
-                top: password.bottom
-                topMargin: 20
+                bottom: form.bottom
                 rightMargin: 25
+                bottomMargin: 25
             }
 
             baseColor: colors.accent2
@@ -214,44 +238,56 @@ Rectangle {
         color: colors.background1
     }
 
-    SequentialAnimation {
+
+    /*  ~~~~~  ANIMATIONS  ~~~~~  */
+
+    Timer {
+        id: starttimer
+        interval: 500
+
+        onTriggered: {
+            startanim.start()
+            bg_rect1_anim2.start()
+            bg_rect2_anim2.start()
+
+            bg_grad.visible = true
+            bg_rect1.visible = true
+            bg_rect2.visible = true
+        }
+    }
+
+    ParallelAnimation {
         id: startanim
-        PauseAnimation {
-            duration: 500
+
+        PropertyAnimation {
+            target: bg_grad
+            property: "y"
+            from: root.height
+            to: 0
+            duration: 3000
+            easing.type: Easing.OutExpo
         }
 
-        ParallelAnimation {
-            NumberAnimation {
-                target: bg_grad
-                property: "y"
-                from: root.height
-                to: 0
-                duration: 3000
-                easing.type: Easing.OutExpo
-            }
-
-            NumberAnimation {
-                target: bg_rect1
-                property: "y"
-                from: root.height
-                to: root.height * 0.35
-                duration: 1400
-                easing.type: Easing.OutExpo
-            }
-            NumberAnimation {
-                target: bg_rect2
-                property: "y"
-                from: root.height
-                to: root.height * 0.5
-                duration: 1400
-                easing.type: Easing.OutExpo
-            }
+        PropertyAnimation {
+            target: bg_rect1
+            property: "y"
+            from: root.height
+            to: root.height * 0.35
+            duration: 1400
+            easing.type: Easing.OutExpo
+        }
+        PropertyAnimation {
+            target: bg_rect2
+            property: "y"
+            from: root.height
+            to: root.height * 0.5
+            duration: 1400
+            easing.type: Easing.OutExpo
         }
     }
 
     Component.onCompleted: {
-        bg_rect1_anim2.start()
-        startanim.start()
+        starttimer.start()
     }
 }
 
