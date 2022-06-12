@@ -10,6 +10,9 @@ class Window(QObject):
     def __init__(self, engine: QQmlApplicationEngine, settings, colors, data):
         super(Window, self).__init__()
 
+        self.qmlPath = Path(__file__).resolve().parent / 'qml'
+        self.iconsPath = self.qmlPath / 'icons'
+
         self.settings = settings
         self.colors = colors
         self.data = data
@@ -27,6 +30,10 @@ class Window(QObject):
     @Slot(str)
     def loadView(self, view: str):
         self.root.loadView(view)
+
+    @Slot(str, result=str)
+    def getIconPath(self, icon: str):
+        return str(self.iconsPath / (icon + '.png'))
 
     @Slot(str)
     def setTheme(self, theme: dict):

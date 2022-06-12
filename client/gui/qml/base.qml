@@ -72,20 +72,20 @@ Window {
             }
 
             Item {
-                property int buttonWidth: 50
-
                 id: titlebar_buttons
-                width: buttonWidth * 3
                 anchors.top: titlebar.top
                 anchors.bottom: titlebar.bottom
                 anchors.right: titlebar.right
 
                 Button {
                     id: closeButton
+                    iconSrc: "close"
+                    iconPadding: 8
+                    iconColor: colors.titlebar_icon
                     baseColor: colors.titlebar_button_bg
                     hoverColor: colors.titlebar_close_hover
                     pressedColor: colors.titlebar_close_pressed
-                    width: titlebar_buttons.buttonWidth
+                    width: 50
                     anchors {
                         top: parent.top
                         bottom: parent.bottom
@@ -99,10 +99,13 @@ Window {
 
                 Button {
                     id: maximizeButton
+                    iconSrc: "maximize"
+                    iconPadding: 8
+                    iconColor: colors.titlebar_icon
                     baseColor: colors.titlebar_button_bg
                     hoverColor: colors.titlebar_maximize_hover
                     pressedColor: colors.titlebar_maximize_pressed
-                    width: titlebar_buttons.buttonWidth
+                    width: 50
                     anchors {
                         top: parent.top
                         bottom: parent.bottom
@@ -121,10 +124,13 @@ Window {
 
                 Button {
                     id: minimizeButton
+                    iconSrc: "minimize"
+                    iconPadding: 8
+                    iconColor: colors.titlebar_icon
                     baseColor: colors.titlebar_button_bg
                     hoverColor: colors.titlebar_minimize_hover
                     pressedColor: colors.titlebar_minimize_pressed
-                    width: titlebar_buttons.buttonWidth
+                    width: 50
                     anchors {
                         top: parent.top
                         bottom: parent.bottom

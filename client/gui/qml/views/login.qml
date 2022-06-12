@@ -9,13 +9,16 @@ Rectangle {
     border.width: 0
 
     function submitLogin () {
-        console.log(username)
+        console.log(username.text, password.text, rememberme.checked)
     }
 
     // back button
     Button {
         width: 50
         height: 50
+        iconSrc: "return"
+        iconPadding: 10
+        iconColor: colors.text3
 
         function callback() {
             backend.loadView("test")
@@ -43,7 +46,7 @@ Rectangle {
         visible: false
         x: root.width * 0.8
         y: root.height * 0.35
-        width: root.height / 15
+        width: 10 + root.height / 20
         height: width
         color: ColorFunctions.transparency(colors.accent1, 0.7)
         radius: 10
@@ -84,7 +87,7 @@ Rectangle {
         visible: false
         x: root.width * 0.85
         y: root.height * 0.5
-        width: root.height / 12
+        width: 10 + root.height / 15
         height: width
         color: ColorFunctions.transparency(colors.accent1, 0.7)
         radius: 10
@@ -187,7 +190,7 @@ Rectangle {
             }
 
             function callback () {
-                console.log()
+                root.submitLogin()
             }
         }
 
@@ -227,6 +230,16 @@ Rectangle {
             pressedRotation: 45
             animDuration: 300
             animEasing: Easing.OutBack
+        }
+
+        Icon {
+            source: "rightarrow"
+            color: colors.background3
+
+            anchors {
+                fill: submit
+                margins: 10
+            }
         }
     }
 

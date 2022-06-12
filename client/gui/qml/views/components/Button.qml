@@ -1,4 +1,5 @@
 import QtQuick
+import Qt5Compat.GraphicalEffects
 
 Rectangle {
     id: root
@@ -6,15 +7,22 @@ Rectangle {
     focus: true
     activeFocusOnTab: true
 
+    property string iconSrc: ""
+    property int iconPadding: 0
+
+    property color iconColor: "white"
+    property color iconHoverColor: iconColor
+    property color iconPressedColor: iconColor
+
     property color baseColor: "transparent"
     property int baseRotation: 0
     property int baseScale: 1
 
-    property color hoverColor: "transparent"
+    property color hoverColor: baseColor
     property int hoverRotation: 0
     property int hoverScale: 1
 
-    property color pressedColor: "transparent"
+    property color pressedColor: baseColor
     property int pressedRotation: 0
     property int pressedScale: 1
 
@@ -22,7 +30,7 @@ Rectangle {
     property int animEasing: Easing.Linear
     property int colorAnimDuration: 0
 
-    function callback() {console.log("button pressed!")}
+    function callback() {console.log(root, "button pressed!")}
 
     states: [
         State {
@@ -32,6 +40,10 @@ Rectangle {
                 color: baseColor
                 rotation: baseRotation
                 scale: baseScale
+            }
+            PropertyChanges {
+                target: icon
+                color: root.iconColor
             }
         },
         State {
@@ -43,6 +55,10 @@ Rectangle {
                 rotation: hoverRotation
                 scale: hoverScale
             }
+            PropertyChanges {
+                target: icon
+                color: root.iconHoverColor
+            }
         },
         State {
             name: "pressed"
@@ -51,6 +67,10 @@ Rectangle {
                 color: pressedColor
                 rotation: pressedRotation
                 scale: pressedScale
+            }
+            PropertyChanges {
+                target: icon
+                color: root.iconPressedColor
             }
         }
     ]
@@ -99,14 +119,23 @@ Rectangle {
         }
     }
 
-    Text {
-        color: colors.titlebar_button_icon
-        anchors.fill: root
-        horizontalAlignment: Text.AlignHCenter
-        verticalAlignment: Text.AlignVCenter
-        font.pointSize: 10
-        text: "·"
+    Icon {
+        id: icon
+        source: root.iconSrc
+
+        anchors {
+            fill: root
+            margins: root.iconPadding
+        }
     }
 }
 
 
+
+
+
+/*##^##
+Designer {
+    D{i:0;autoSize:true;height:480;width:640}
+}
+##^##*/
