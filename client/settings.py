@@ -1,4 +1,8 @@
 from configparser import ConfigParser
+from pathlib import Path
+
+
+BASEPATH = Path(__file__).resolve().parent
 
 
 class FileAPI:
@@ -6,7 +10,7 @@ class FileAPI:
         self.file = file
 
         self.config = ConfigParser()
-        self.config.read(file)
+        self.config.read(BASEPATH / file)
 
     def get(self, section=None, option=None):
         if section is None:

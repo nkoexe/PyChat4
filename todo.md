@@ -1,3 +1,3 @@
-- aggiungere al pulsante possibilita' di modificare proprieta' dell'immagine interna
-- rimuovere focus da l'oggetto che lo ha quando si clicca con il mouse
+- aggiungere al pulsante possibilita' di ruotare / scalare immagine interna
+- rimuovere focus dall'oggetto che lo detiene quando si clicca con il mouse
 - rifare icone monotone con alpha 1/255 per il coloroverlay

@@ -9,7 +9,7 @@ from settings import Colors, Data, Settings
 
 
 def main():
-    os.chdir(os.fspath(Path(__file__).resolve().parent))
+    # os.chdir(os.fspath(Path(__file__).resolve().parent))
 
     app = QGuiApplication([])
     engine = QQmlApplicationEngine()
