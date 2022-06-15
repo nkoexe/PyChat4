@@ -28,8 +28,8 @@ Rectangle {
 
         anchors {
             left: root.left
-            right: goto_main.left
-            verticalCenter: root.verticalCenter
+            top: title.bottom
+            right: root.horizontalCenter
             margins: 20
         }
 
@@ -48,15 +48,42 @@ Rectangle {
     }
 
     Rectangle {
-        id: goto_main
+        id: goto_loading
         radius: 15
         color: colors.background3
         height: root.height / 3
-        width: root.width / 3
 
         anchors {
-            horizontalCenter: root.horizontalCenter
-            verticalCenter: root.verticalCenter
+            left: root.horizontalCenter
+            top: title.bottom
+            right: root.right
+            margins: 20
+        }
+
+        Text {
+            text: "Loading page"
+            font.pixelSize: 22
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignVCenter
+            font.family: "Product Sans"
+            font.italic: true
+            color: colors.text3
+            anchors.fill: parent
+        }
+
+        TapHandler { onTapped: backend.loadView("loading") }
+    }
+
+    Rectangle {
+        id: goto_main
+        radius: 15
+        color: colors.background3
+
+        anchors {
+            left: root.left
+            top: goto_login.bottom
+            right: root.horizontalCenter
+            bottom: root.bottom
             margins: 20
         }
 
@@ -81,9 +108,10 @@ Rectangle {
         height: root.height / 3
 
         anchors {
-            left: goto_main.right
+            left: root.horizontalCenter
+            top: goto_loading.bottom
             right: root.right
-            verticalCenter: root.verticalCenter
+            bottom: root.bottom
             margins: 20
         }
 
